@@ -325,7 +325,7 @@ function initLeafletMap() {
   L.marker(dubaiCoords, { icon: dubaiIcon })
     .addTo(mapInstance)
     .bindTooltip(`
-      <div class="bg-white border border-brand-blue/50 p-2 text-zinc-900 uppercase tracking-wider font-mono text-[10px]">
+      <div class="bg-white border border-brand-blue/50 p-2 text-zinc-900 uppercase tracking-wider font-sans text-[10px]">
         <div class="text-brand-blue font-bold">// NETEX GLOBAL HQ</div>
         <div class="text-zinc-950 font-bold mt-0.5">DUBAI CORE TERMINAL</div>
       </div>
@@ -355,7 +355,7 @@ function initLeafletMap() {
     L.marker(city.loc, { icon: cityIcon })
       .addTo(mapInstance)
       .bindTooltip(`
-        <div class="bg-white border border-zinc-200 p-1.5 font-mono text-[9px] text-zinc-900 uppercase tracking-widest">
+        <div class="bg-white border border-zinc-200 p-1.5 font-sans text-[9px] text-zinc-900 uppercase tracking-widest">
           <div class="text-zinc-950 font-bold">${city.name}</div>
         </div>
       `, {
@@ -390,7 +390,7 @@ function renderMapSliderControls() {
   container.innerHTML = '';
   destinations.forEach((dest) => {
     const btn = document.createElement('button');
-    btn.className = `px-3 py-1.5 font-mono text-[9px] tracking-widest uppercase transition-all shrink-0 rounded-sm cursor-pointer border ${
+    btn.className = `px-3 py-1.5 font-sans text-[9px] tracking-widest uppercase transition-all shrink-0 rounded-sm cursor-pointer border ${
       activeMapHubId === dest.id 
         ? 'bg-brand-blue text-white font-bold shadow-[0_0_10px_rgba(15,58,140,0.4)] border-brand-blue' 
         : 'bg-zinc-100 text-zinc-600 hover:text-zinc-900 border-zinc-200 hover:border-zinc-300'
