@@ -1218,17 +1218,56 @@ window.openServiceHubDivision = function(id) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Automatically apply reveal animation to all major sections
+    document.querySelectorAll('section').forEach(sec => sec.classList.add('reveal-step'));
+
     const steps = document.querySelectorAll('.reveal-step');
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if(entry.isIntersecting) {
                 entry.target.classList.add('revealed');
+                observer.unobserve(entry.target); // Only animate once per load
             }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.12 });
 
-    steps.forEach((step, index) => {
-        step.style.transitionDelay = `${index * 0.15}s`;
+    steps.forEach((step) => {
         observer.observe(step);
+    });
+});
+
+// Fancy Parallax Scroll Effects for Hero Headings
+document.addEventListener('DOMContentLoaded', () => {
+    const bgText = document.querySelector('.hero-bg-text');
+    const bottomHeadline = document.querySelector('.hero-bottom-headline');
+    const containerImg = document.querySelector('.hero-container-img');
+    
+    let ticking = false;
+    
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.scrollY;
+                
+                // Parallax the giant background text (moves up faster, keeping its centering)
+                if (bgText) {
+                    bgText.style.transform = `translate(-50%, -50%) translateY(${scrolled * 0.35}px)`;
+                }
+                
+                // Parallax the bottom headline (fades out, moves up and slightly scales down)
+                if (bottomHeadline) {
+                    bottomHeadline.style.transform = `translateX(-50%) translateY(${scrolled * 0.15}px) scale(${Math.max(0.85, 1 - scrolled * 0.0004)})`;
+                    bottomHeadline.style.opacity = Math.max(0, 1 - scrolled * 0.0015);
+                }
+                
+                // Float the 3D container up slightly
+                if (containerImg) {
+                    containerImg.style.transform = `translate(-50%, -45%) translateY(${scrolled * 0.1}px)`;
+                }
+                
+                ticking = false;
+            });
+            ticking = true;
+        }
     });
 });

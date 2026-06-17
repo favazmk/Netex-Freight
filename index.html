@@ -16,6 +16,24 @@
         .mobile-logo { display: none; }
         .desktop-logo { display: block; }
       }
+      
+      /* Fancy 3D Blur Reveal Animation */
+      .reveal-step {
+        opacity: 0;
+        transform: translateY(60px) scale(0.96) rotateX(-4deg);
+        filter: blur(8px);
+        transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                    filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform, filter;
+        transform-origin: center top;
+        perspective: 1000px;
+      }
+      .reveal-step.revealed {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0deg);
+        filter: blur(0px);
+      }
     </style>
     <style>
       .{
@@ -249,8 +267,221 @@
 
       <!-- ==================== PAGE Stack: HOME ==================== -->
       <div id="page-home" class="page-view block">
+        
+        <!-- NEW REFERENCE HERO BLOCK (PURE HTML/CSS) -->
+        <style>
+          #reference-hero {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 80px); /* Fill screen below header */
+            background-color: #ffffff; /* Changed to white */
+            overflow: hidden;
+            color: #111111; /* Changed text to dark */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          }
+          
+          /* Faint architectural grid */
+          .hero-grid {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+              linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 100px 100px;
+            z-index: 1;
+          }
+
+          /* Giant background typography */
+          .hero-bg-text {
+            position: absolute;
+            top: 42%; /* Lowered slightly from 30% to sit just above center */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 11.5vw; /* Reduced from 16vw so it doesn't overlap screen edges */
+            font-weight: 900;
+            color: #e4e4e7; /* Darker grey to be more visible on white */
+            white-space: nowrap;
+            z-index: 5;
+            letter-spacing: 0.05em; /* Increased letter spacing */
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.03); /* Slight shadow to give it subtle depth */
+          }
+
+          /* The 3D container image floating in the center */
+          .hero-container-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -45%);
+            height: 90%; /* Scale the container up */
+            max-width: none;
+            z-index: 10;
+            filter: drop-shadow(0 20px 25px rgba(0,0,0,0.4)) drop-shadow(0 50px 70px rgba(0,0,0,0.25)); /* Deep, realistic dual-layer shadow */
+          }
+
+          /* Top Left block */
+          .hero-block-tl {
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            max-width: 320px;
+            z-index: 15;
+          }
+          .hero-block-tl h3 { font-size: 2.2rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; font-family: 'Impact', sans-serif; letter-spacing: 1px; color: #111; }
+          .hero-block-tl p { font-size: 0.9rem; color: #52525b; line-height: 1.6; }
+
+          /* Top Right block */
+          .hero-block-tr {
+            position: absolute;
+            top: 60px;
+            right: 60px;
+            max-width: 320px;
+            text-align: right;
+            z-index: 15;
+          }
+          .hero-block-tr h3 { font-size: 2.2rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; font-family: 'Impact', sans-serif; letter-spacing: 1px; color: #111; }
+          .hero-block-tr p { font-size: 0.9rem; color: #52525b; line-height: 1.6; }
+
+          /* Top Paragraph */
+          .hero-top-paragraph {
+            position: absolute;
+            top: 40px;
+            left: 60px;
+            right: 60px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #52525b;
+            letter-spacing: 0.05em;
+            line-height: 1.5;
+            z-index: 15;
+            text-transform: uppercase;
+          }
+          
+          /* Bottom Headline */
+          .hero-bottom-headline {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 20;
+            width: 90%;
+            max-width: 900px;
+          }
+
+          /* Responsiveness */
+          @media (max-width: 1024px) {
+            .hero-bg-text { font-size: 14vw; top: 38%; }
+            .hero-container-img { height: 75%; }
+            .hero-block-tl, .hero-block-tr { top: 40px; max-width: 250px; }
+            .hero-block-tl { left: 40px; }
+            .hero-block-tr { right: 40px; }
+            .hero-block-tl h3, .hero-block-tr h3 { font-size: 1.8rem; }
+            .hero-top-paragraph { left: 40px; right: 40px; }
+          }
+          @media (max-width: 768px) {
+            .hero-bg-text { font-size: 12vw; top: 30%; opacity: 0.8; } /* Shifted up */
+            .hero-container-img { height: auto; width: 100%; top: 40%; transform: translate(-50%, -45%); filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)); } /* Shifted up */
+            #reference-hero { height: 60vh; min-height: 420px; display: block; } /* Reduced height to remove overall negative space */
+            .hero-top-paragraph { display: none; } 
+            .hero-bottom-headline { position: absolute; bottom: 40px; top: auto; left: 50%; transform: translateX(-50%); width: 100%; padding: 0 20px; margin-top: 0; } 
+          }
+        </style>
+
+        <section id="reference-hero">
+          <div class="hero-grid"></div>
+          
+          <div class="hero-top-paragraph">
+            Netex Freight is a digital infrastructure crafted to impress corporate partners. The platform serves as a logistics presentation — designed to instantly convey professionalism, global reach, and strategic trade.
+          </div>
+          
+          <div class="hero-bg-text">NETEX FREIGHT</div>
+          
+          <img src="./blue_container_flat_transparent.png" alt="Blue Shipping Container (NETEX Flat Side View)" class="hero-container-img" />
+
+
+
+          <div class="hero-bottom-headline">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-display leading-[1.1] tracking-tight text-zinc-950 uppercase drop-shadow-sm">
+              POWERING GLOBAL TRADE THROUGH <span class="text-zinc-500 font-display font-medium">SEAMLESS LOGISTICS.</span>
+            </h1>
+          </div>
+        </section>
+
+          <!-- HERO FLOATING BADGES ROW -->
+          <div class="w-full bg-brand-blue relative z-20" style="background-color: #0f3a8c; padding-top: 3rem; padding-bottom: 3rem;">
+            
+            <style>
+              .premium-badges-grid > div {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+              }
+              @media (max-width: 1024px) {
+                .premium-badges-grid {
+                  gap: 2rem;
+                }
+              }
+              @media (max-width: 768px) {
+                .premium-badges-grid {
+                  gap: 3rem;
+                }
+              }
+            </style>
+            <div class="w-full max-w-7xl mx-auto px-6">
+              <div class="premium-badges-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                
+                <!-- Premium Card 1 -->
+                <div class="bg-transparent flex flex-col justify-center items-center text-center h-full px-4 py-8 md:py-4 gap-4 transition-all duration-300 group" style="color: white;">
+                  <div class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue transition-all duration-300" style="background-color: rgba(255,255,255,0.1);">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                  </div>
+                  <div class="flex flex-col">
+                    <div class="font-display font-bold text-[13px] uppercase tracking-widest mb-1 relative z-10" style="color: white;">RELIABLE & SAFE</div>
+                    <div class="text-xs leading-relaxed relative z-10" style="color: rgba(255,255,255,0.8);">Secure asset handling guaranteed at every step of global transit.</div>
+                  </div>
+                </div>
+
+                <!-- Premium Card 2 -->
+                <div class="bg-transparent flex flex-col justify-center items-center text-center h-full px-4 py-8 md:py-4 gap-4 transition-all duration-300 group" style="color: white;">
+                  <div class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue transition-all duration-300" style="background-color: rgba(255,255,255,0.1);">
+                    <i data-lucide="clock" class="w-5 h-5"></i>
+                  </div>
+                  <div class="flex flex-col">
+                    <div class="font-display font-bold text-[13px] uppercase tracking-widest mb-1 relative z-10" style="color: white;">ON-TIME DELIVERY</div>
+                    <div class="text-xs leading-relaxed relative z-10" style="color: rgba(255,255,255,0.8);">Timely priority shipping solutions keeping your supply chain ahead.</div>
+                  </div>
+                </div>
+
+                <!-- Premium Card 3 -->
+                <div class="bg-transparent flex flex-col justify-center items-center text-center h-full px-4 py-8 md:py-4 gap-4 transition-all duration-300 group" style="color: white;">
+                  <div class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue transition-all duration-300" style="background-color: rgba(255,255,255,0.1);">
+                    <i data-lucide="globe" class="w-5 h-5"></i>
+                  </div>
+                  <div class="flex flex-col">
+                    <div class="font-display font-bold text-[13px] uppercase tracking-widest mb-1 relative z-10" style="color: white;">GLOBAL NETWORK</div>
+                    <div class="text-xs leading-relaxed relative z-10" style="color: rgba(255,255,255,0.8);">Strong direct alliances with global ocean carriers & air lines.</div>
+                  </div>
+                </div>
+
+                <!-- Premium Card 4 -->
+                <div class="bg-transparent flex flex-col justify-center items-center text-center h-full px-4 py-8 md:py-4 gap-4 transition-all duration-300 group" style="color: white;">
+                  <div class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue transition-all duration-300" style="background-color: rgba(255,255,255,0.1);">
+                    <i data-lucide="headphones" class="w-5 h-5"></i>
+                  </div>
+                  <div class="flex flex-col">
+                    <div class="font-display font-bold text-[13px] uppercase tracking-widest mb-1 relative z-10" style="color: white;">DEDICATED SUPPORT</div>
+                    <div class="text-xs leading-relaxed relative z-10" style="color: rgba(255,255,255,0.8);">Dubai operations desk available 24/7/365 to manage dispatch.</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
         <!-- MAJESTIC LOGISTICS HERO BLOCK -->
-        <section id="hero" class="relative border-b border-zinc-200 bg-transparent overflow-hidden flex flex-col justify-between">
+        <section id="hero" class="relative border-b border-zinc-200 bg-zinc-50 overflow-hidden flex flex-col justify-between">
           <div class="max-w-7xl mx-auto w-full flex-grow flex flex-col md:flex-row items-stretch min-h-[75vh]">
             
             <!-- Left Side Content -->
@@ -261,9 +492,6 @@
                 </span>
               </div>
               
-              <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black font-display leading-[0.9] tracking-tighter mb-8 text-zinc-950 uppercase">
-                FREIGHT<br/>WITHOUT<br/><span class="text-zinc-400 font-display font-medium">LIMITS.</span>
-              </h1>
               
               <p class="text-zinc-600 text-base md:text-lg max-w-lg leading-relaxed mb-10 font-sans">
                 NEFTEX orchestrates complex global supply chains with extreme precision, moving heavy freight assets across continents via custom sea, express air, and secured GCC highway trailer fleets.
@@ -324,68 +552,6 @@
 
           </div>
 
-          <!-- HERO FLOATING BADGES ROW -->
-          <div class="w-full bg-brand-blue relative z-20" style="background-color: #0f3a8c; padding-top: 3rem; padding-bottom: 3rem;">
-            
-            <style>
-              .premium-badges-grid > div {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-              }
-            </style>
-            <div class="w-full max-w-7xl mx-auto px-6">
-              <div class="premium-badges-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-                
-                <!-- Premium Card 1 -->
-                <div class="bg-transparent flex flex-col justify-center items-center text-center h-full px-4 py-8 md:py-4 gap-4 transition-all duration-300 group" style="color: white;">
-                  <div class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue transition-all duration-300" style="background-color: rgba(255,255,255,0.1);">
-                    <i data-lucide="shield-check" class="w-5 h-5"></i>
-                  </div>
-                  <div class="flex flex-col">
-                    <div class="font-display font-bold text-[13px] uppercase tracking-widest mb-1 relative z-10" style="color: white;">RELIABLE & SAFE</div>
-                    <div class="text-xs leading-relaxed relative z-10" style="color: rgba(255,255,255,0.8);">Secure asset handling guaranteed at every step of global transit.</div>
-                  </div>
-                </div>
-
-                <!-- Premium Card 2 -->
-                <div class="bg-transparent flex flex-col justify-center items-center text-center h-full px-4 py-8 md:py-4 gap-4 transition-all duration-300 group" style="color: white;">
-                  <div class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue transition-all duration-300" style="background-color: rgba(255,255,255,0.1);">
-                    <i data-lucide="clock" class="w-5 h-5"></i>
-                  </div>
-                  <div class="flex flex-col">
-                    <div class="font-display font-bold text-[13px] uppercase tracking-widest mb-1 relative z-10" style="color: white;">ON-TIME DELIVERY</div>
-                    <div class="text-xs leading-relaxed relative z-10" style="color: rgba(255,255,255,0.8);">Timely priority shipping solutions keeping your supply chain ahead.</div>
-                  </div>
-                </div>
-
-                <!-- Premium Card 3 -->
-                <div class="bg-transparent flex flex-col justify-center items-center text-center h-full px-4 py-8 md:py-4 gap-4 transition-all duration-300 group" style="color: white;">
-                  <div class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue transition-all duration-300" style="background-color: rgba(255,255,255,0.1);">
-                    <i data-lucide="globe" class="w-5 h-5"></i>
-                  </div>
-                  <div class="flex flex-col">
-                    <div class="font-display font-bold text-[13px] uppercase tracking-widest mb-1 relative z-10" style="color: white;">GLOBAL NETWORK</div>
-                    <div class="text-xs leading-relaxed relative z-10" style="color: rgba(255,255,255,0.8);">Strong direct alliances with global ocean carriers & air lines.</div>
-                  </div>
-                </div>
-
-                <!-- Premium Card 4 -->
-                <div class="bg-transparent flex flex-col justify-center items-center text-center h-full px-4 py-8 md:py-4 gap-4 transition-all duration-300 group" style="color: white;">
-                  <div class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-brand-blue transition-all duration-300" style="background-color: rgba(255,255,255,0.1);">
-                    <i data-lucide="headphones" class="w-5 h-5"></i>
-                  </div>
-                  <div class="flex flex-col">
-                    <div class="font-display font-bold text-[13px] uppercase tracking-widest mb-1 relative z-10" style="color: white;">DEDICATED SUPPORT</div>
-                    <div class="text-xs leading-relaxed relative z-10" style="color: rgba(255,255,255,0.8);">Dubai operations desk available 24/7/365 to manage dispatch.</div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
         </section>
 
         <!-- CORPORATE PROFILE / ABOUT NETEX SECTION -->
@@ -951,8 +1117,9 @@
 
         <!-- Trademark and secondary legal details -->
         <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-zinc-500 text-[11px] font-mono uppercase tracking-widest">
-          <div>
-            &copy; 2026 NETEX FREIGHT. ALL RIGHTS RESERVED.
+          <div class="text-center md:text-left space-y-1">
+            <div>&copy; 2026 NETEX FREIGHT. ALL RIGHTS RESERVED.</div>
+            <div class="text-[10px]">SITE BY <a href="https://webbranding.com" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold transition-colors" style="color: #9333ea;">WEB BRANDING</a></div>
           </div>
           <div class="flex gap-4">
             <span class="hover:text-brand-blue cursor-pointer">Secure SLAs</span>
