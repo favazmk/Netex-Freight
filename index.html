@@ -61,7 +61,7 @@
         width: 150px;
         height: 32px;
         z-index: 10;
-        background-color: #0f3a8c;
+        background-color: #011d50;
         clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 100%, 0 100%);
       }
       @media (min-width: 768px) {
@@ -101,21 +101,21 @@
         <!-- Map Background Group -->
         <g opacity="0.08">
         <!-- Equatorial / Longitude coordinate text markers -->
-        <text x="15" y="246" fill="#0f3a8c" class="font-sans text-[8px] tracking-widest font-semibold uppercase ">EQUATOR // 00°00'00"</text>
-        <text x="502" y="25" fill="#0f3a8c" class="font-sans text-[8px] tracking-widest font-semibold uppercase ">PRIME MERIDIAN // 00°00'00"</text>
+        <text x="15" y="246" fill="#011d50" class="font-sans text-[8px] tracking-widest font-semibold uppercase ">EQUATOR // 00°00'00"</text>
+        <text x="502" y="25" fill="#011d50" class="font-sans text-[8px] tracking-widest font-semibold uppercase ">PRIME MERIDIAN // 00°00'00"</text>
         
         <!-- Coordinate details -->
-        <text x="525" y="155" fill="#0f3a8c" class="font-sans text-[8px] tracking-wider font-bold opacity-70">HQ DUBAI AXIS DEPT: 25.2048° N, 55.2708° E</text>
-        <text x="100" y="470" fill="#0f3a8c" class="font-sans text-[7px] tracking-wider opacity-35">PACIFIC GRID TRANSIT LN</text>
-        <text x="750" y="470" fill="#0f3a8c" class="font-sans text-[7px] tracking-wider opacity-35">INDIAN OCEAN CARRIER SEGMENT</text>
+        <text x="525" y="155" fill="#011d50" class="font-sans text-[8px] tracking-wider font-bold opacity-70">HQ DUBAI AXIS DEPT: 25.2048° N, 55.2708° E</text>
+        <text x="100" y="470" fill="#011d50" class="font-sans text-[7px] tracking-wider opacity-35">PACIFIC GRID TRANSIT LN</text>
+        <text x="750" y="470" fill="#011d50" class="font-sans text-[7px] tracking-wider opacity-35">INDIAN OCEAN CARRIER SEGMENT</text>
 
         <!-- Global Blueprint Grid circles -->
-        <circle cx="500" cy="180" r="120" fill="none" stroke="rgba(15, 58, 140, 0.15)" stroke-width="0.5" stroke-dasharray="3,6" />
-        <circle cx="500" cy="180" r="220" fill="none" stroke="rgba(15, 58, 140, 0.1)" stroke-width="0.5" stroke-dasharray="2,4" />
-        <circle cx="500" cy="180" r="320" fill="none" stroke="rgba(15, 58, 140, 0.05)" stroke-width="0.5" stroke-dasharray="4,8" />
-        <circle cx="500" cy="180" r="450" fill="none" stroke="rgba(15, 58, 140, 0.03)" stroke-width="0.5" stroke-dasharray="5,10" />
+        <circle cx="500" cy="180" r="120" fill="none" stroke="rgba(1, 29, 80, 0.15)" stroke-width="0.5" stroke-dasharray="3,6" />
+        <circle cx="500" cy="180" r="220" fill="none" stroke="rgba(1, 29, 80, 0.1)" stroke-width="0.5" stroke-dasharray="2,4" />
+        <circle cx="500" cy="180" r="320" fill="none" stroke="rgba(1, 29, 80, 0.05)" stroke-width="0.5" stroke-dasharray="4,8" />
+        <circle cx="500" cy="180" r="450" fill="none" stroke="rgba(1, 29, 80, 0.03)" stroke-width="0.5" stroke-dasharray="5,10" />
         
-        <g fill="rgba(15, 58, 140, 0.15)" stroke="rgba(15, 58, 140, 0.4)" stroke-width="0.75" stroke-linejoin="round" stroke-linecap="round">
+        <g fill="rgba(1, 29, 80, 0.15)" stroke="rgba(1, 29, 80, 0.4)" stroke-width="0.75" stroke-linejoin="round" stroke-linecap="round">
           <!-- North America -->
           <polygon points="80,100 110,85 140,85 160,95 180,90 200,105 210,135 180,175 140,195 160,230 150,245 130,240 120,215 100,195 75,150 90,130" />
           
@@ -132,7 +132,7 @@
           <polygon points="365,115 410,95 470,75 540,75 660,85 745,105 780,125 805,155 785,195 745,215 715,195 685,235 635,245 565,235 505,205 455,195 415,200 395,155 365,130" />
           
           <!-- Middle East (Zoom Hub) -->
-          <polygon points="455,195 485,190 505,205 485,220 465,215" fill="rgba(15, 58, 140, 0.6)" stroke="#0f3a8c" stroke-width="1" />
+          <polygon points="455,195 485,190 505,205 485,220 465,215" fill="rgba(1, 29, 80, 0.6)" stroke="#011d50" stroke-width="1" />
           
           <!-- Australia -->
           <polygon points="720,300 760,280 800,310 790,350 740,350 710,330" />
@@ -144,7 +144,7 @@
         </g>
 
         <!-- Global Route Lines -->
-        <g stroke="rgba(15, 58, 140, 0.35)" stroke-width="0.8" fill="none" stroke-dasharray="3,6">
+        <g stroke="rgba(1, 29, 80, 0.35)" stroke-width="0.8" fill="none" stroke-dasharray="3,6">
           <path d="M 485,205 Q 410,140 350,115" />
           <path d="M 485,205 Q 600,230 710,260" />
           <path d="M 485,205 Q 330,140 180,135" />
@@ -164,7 +164,7 @@
         </g> <!-- End Map Background Group -->
 
         <!-- Global glowing dots -->
-        <g fill="#0f3a8c" class="opacity-60">
+        <g fill="#011d50" class="opacity-60">
           <circle cx="485" cy="205" r="3.5" class="animate-pulse" style="animation-duration: 2s; animation-delay: 0s;" />
           <circle cx="180" cy="135" r="2" class="animate-pulse" style="animation-duration: 1.5s; animation-delay: 0.2s;" />
           <circle cx="350" cy="115" r="2" class="animate-pulse" style="animation-duration: 2.2s; animation-delay: 0.5s;" />
@@ -182,7 +182,7 @@
         </g>
         
         <!-- Hub labels -->
-        <g font-family="sans-serif" font-size="5" fill="#0f3a8c" opacity="0.45" font-weight="bold">
+        <g font-family="sans-serif" font-size="5" fill="#011d50" opacity="0.45" font-weight="bold">
           <text x="492" y="208">DXB HUB</text>
           <text x="355" y="114">EUR NODE</text>
           <text x="185" y="134">NYC NODE</text>
@@ -255,7 +255,7 @@
         <a href="#why-choose-us" class="mobile-nav-link block py-2.5 text-zinc-700 hover:text-brand-blue border-b border-zinc-100">Why Choose Us</a>
         <a href="#contact-us" class="mobile-nav-link block py-2.5 text-zinc-700 hover:text-brand-blue">Contact Us</a>
         <div class="pt-2 flex items-center justify-between">
-          <a href="tel:+971543043515" class="py-2.5 text-[#0f3a8c] font-bold block flex items-center gap-2">
+          <a href="tel:+971543043515" class="py-2.5 text-[#011d50] font-bold block flex items-center gap-2">
             <i data-lucide="phone" class="w-4 h-4"></i> +971 54 304 3515
           </a>
         </div>
@@ -406,7 +406,7 @@
         </section>
 
           <!-- HERO FLOATING BADGES ROW -->
-          <div class="w-full bg-brand-blue relative z-20" style="background-color: #0f3a8c; padding-top: 3rem; padding-bottom: 3rem;">
+          <div class="w-full bg-brand-blue relative z-20" style="background-color: #011d50; padding-top: 3rem; padding-bottom: 3rem;">
             
             <style>
               .premium-badges-grid > div {
@@ -489,6 +489,7 @@
                 </span>
               </div>
               
+              <h2 class="text-4xl md:text-5xl font-display font-black text-zinc-950 uppercase mb-4 tracking-tight">ARCHITECTS OF GLOBAL TRADE</h2>
               
               <p class="text-zinc-600 text-base md:text-lg max-w-lg leading-relaxed mb-10 font-sans">
                 NEFTEX orchestrates complex global supply chains with extreme precision, moving heavy freight assets across continents via custom sea, express air, and secured GCC highway trailer fleets.
@@ -528,7 +529,7 @@
               <div class="absolute top-4 left-4 z-30 max-w-xs bg-white/95 backdrop-blur-md border border-zinc-250 px-4 py-3 rounded-sm shadow-2xl font-sans">
                 <div class="flex items-center gap-2 mb-1.5">
                   <span class="w-2.5 h-2.5 rounded-full bg-brand-blue animate-ping"></span>
-                  <span class="text-[10px] uppercase tracking-widest text-[#0f3a8c] font-bold">TERMINAL FEED LIVE</span>
+                  <span class="text-[10px] uppercase tracking-widest text-[#011d50] font-bold">TERMINAL FEED LIVE</span>
                 </div>
                 <div id="terminal-feed-city" class="text-zinc-950 text-xs font-bold uppercase tracking-wide leading-none">GLOBAL HUB</div>
                 <div id="terminal-feed-service" class="text-[10px] text-zinc-505 mt-1 uppercase">Active Multimodal Trade corridors</div>
@@ -598,7 +599,7 @@
         </section>
 
         <!-- CORE SERVICES PREVIEW -->
-        <section class="edge-tab-blue py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #0f3a8c;">
+        <section class="edge-tab-blue py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #011d50;">
           <!-- Subtle decorative elements for dark background -->
           <div class="absolute left-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
           
@@ -637,7 +638,7 @@
         </section>
 
         <!-- CTA SECTION IN THE SITE -->
-        <section class="edge-tab-blue py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #0f3a8c;">
+        <section class="edge-tab-blue py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #011d50;">
           <!-- Subtle decorative elements for dark background -->
           <div class="absolute right-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
           <div class="absolute left-0 bottom-0 w-64 h-64 bg-black/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -673,7 +674,7 @@
       <!-- ==================== PAGE Stack: SERVICES ==================== -->
       <div id="page-services" class="page-view hidden">
         <!-- Grid Cards block -->
-        <section class="py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #0f3a8c;">
+        <section class="py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #011d50;">
           <div class="absolute right-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
           <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
@@ -800,7 +801,7 @@
         </section>
 
         <!-- Workflow pipeline inside About segment too -->
-        <section class="edge-tab-blue py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #0f3a8c;">
+        <section class="edge-tab-blue py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #011d50;">
           <style>
             @media (min-width: 768px) {
               #about-page-workflow-timeline::before {
@@ -857,7 +858,7 @@
         </section>
 
         <!-- Specialised industries sectors segment -->
-        <section class="edge-tab-blue py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #0f3a8c;">
+        <section class="edge-tab-blue py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #011d50;">
           <div class="absolute right-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
           <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
@@ -881,7 +882,7 @@
       <!-- ==================== PAGE Stack: CONTACT US ==================== -->
       <div id="page-contact-us" class="page-view hidden">
         <!-- Main Form Grid -->
-        <section class="py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #0f3a8c;">
+        <section class="py-20 px-6 md:px-12 bg-brand-blue relative" style="background-color: #011d50;">
           <div class="absolute left-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
           <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 space-y-4">
@@ -895,12 +896,6 @@
               <!-- Left side contact parameters info -->
               <div class="flex flex-col justify-start space-y-8">
                 <div class="space-y-4">
-                  <span class="text-white opacity-80 uppercase tracking-[0.2em] font-mono text-xs block mb-1 font-semibold">
-                    // SUBMIT YOUR INQUIRY
-                  </span>
-                  <h3 class="text-3xl md:text-4xl font-display font-black text-white tracking-tight uppercase">
-                    Connect With <span class="text-white opacity-80">Us</span>
-                  </h3>
                   <p class="text-white opacity-90 text-xs md:text-sm leading-relaxed font-sans">
                     Submit your details and cargo metrics directly to our Dubai operations. Our standard dispatcher desk acts immediately upon routing requests.
                   </p>
@@ -989,7 +984,7 @@
       <div id="sticky-contact-menu" class="hidden absolute right-0 mb-4 flex-col items-center space-y-3 w-14" style="bottom: 100%;">
         <a href="tel:+971543043515" class="group relative flex items-center justify-center w-full cursor-pointer">
           <span class="absolute right-[100%] mr-4 bg-white text-zinc-800 font-mono text-[10px] font-bold px-3 py-1.5 rounded-sm shadow-md border border-zinc-200 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block">Call Dispatch</span>
-          <div class="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform" style="background-color: #0f3a8c;">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform" style="background-color: #011d50;">
             <i data-lucide="phone" class="w-5 h-5"></i>
           </div>
         </a>

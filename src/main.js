@@ -366,7 +366,7 @@ function initLeafletMap() {
 
     // Create polyline trade path from Dubai to location
     L.polyline([dubaiCoords, city.loc], {
-      color: '#0f3a8c',
+      color: '#011d50',
       weight: 1.5,
       opacity: 0.75,
       className: 'map-route-line',
