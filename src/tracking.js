@@ -168,6 +168,54 @@ function renderTrackingData(data) {
     stepperContainer.innerHTML = stepperHTML;
   }
 
+  // Render Vertical Stepper for Mobile
+  const verticalStepperContainer = document.getElementById("tracking-stepper-vertical");
+  if (verticalStepperContainer) {
+    const totalSteps = globalStatuses.length;
+    let vStepperHTML = '<div class="relative flex flex-col gap-6 ml-2">';
+
+    // Background gray vertical line
+    vStepperHTML += `<div style="position:absolute; left:18px; top:18px; bottom:18px; width:4px; background:#e4e4e7; border-radius:9999px; z-index:0;"></div>`;
+
+    // Progress colored vertical line overlay
+    if (currentIndex > 0) {
+      const progressPercent = currentIndex >= 0 ? (currentIndex / (totalSteps - 1)) * 100 : 0;
+      const lineColor = isOnHold ? '#ef4444' : '#011d50';
+      vStepperHTML += `<div style="position:absolute; left:18px; top:18px; width:4px; background:${lineColor}; border-radius:9999px; height:calc((100% - 36px) * ${progressPercent / 100}); z-index:1;"></div>`;
+    }
+
+    globalStatuses.forEach((status, idx) => {
+      const isCompleted = idx <= currentIndex;
+      const isActive = idx === currentIndex;
+
+      let circleBg = isCompleted ? '#011d50' : '#e4e4e7';
+      let circleColor = isCompleted ? '#ffffff' : '#a1a1aa';
+      let labelStyle = isCompleted ? 'color:#011d50; font-weight:800;' : 'color:#a1a1aa; font-weight:700;';
+      const icon = isActive ? (isOnHold ? 'alert-circle' : 'truck') : (isCompleted ? 'check' : 'circle');
+
+      if (isOnHold && isActive) {
+        circleBg = '#ef4444';
+        labelStyle = 'color:#dc2626; font-weight:800;';
+      }
+
+      const ringStyle = isActive
+        ? `box-shadow: 0 0 0 4px ${isOnHold ? 'rgba(239,68,68,0.2)' : 'rgba(1,29,80,0.2)'}, 0 10px 15px -3px rgba(0,0,0,0.1);`
+        : '';
+
+      vStepperHTML += `
+        <div class="relative flex items-center gap-4 z-10">
+          <div style="width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:${circleBg}; color:${circleColor}; ${ringStyle} flex-shrink-0;">
+            <i data-lucide="${icon}" style="width:20px; height:20px;"></i>
+          </div>
+          <span style="font-size:11px; ${labelStyle} text-transform:uppercase; letter-spacing:0.1em; line-height:1.2;">${status}</span>
+        </div>
+      `;
+    });
+
+    vStepperHTML += '</div>';
+    verticalStepperContainer.innerHTML = vStepperHTML;
+  }
+
   if (data.timeline && Array.isArray(data.timeline)) {
     // Reverse timeline so newest is at top, if desired. Or keep chronological.
     // Assuming chronological from DB, we display top-down.
