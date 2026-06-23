@@ -12,7 +12,10 @@ const firebaseConfig = {
 // Initialize Firebase only if config is provided
 let db = null;
 if (firebaseConfig.apiKey && window.firebase) {
-  firebase.initializeApp(firebaseConfig);
+  // Guard against duplicate initialization (if another script already initialized Firebase)
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
   db = firebase.firestore();
 }
 

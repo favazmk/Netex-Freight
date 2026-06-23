@@ -983,8 +983,9 @@ function setupContactForms() {
 
     // Auto dismiss after 5 seconds
     setTimeout(() => {
-      if (alertBox) {
-        alertBox.classList.add('hidden');
+      const successAlert = document.getElementById('contact-form-success-alert');
+      if (successAlert) {
+        successAlert.classList.add('hidden');
       }
     }, 5500);
   });
