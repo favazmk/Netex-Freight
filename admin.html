@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netex Freight // Dispatch Admin Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #f4f4f5; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="text-zinc-900 antialiased min-h-screen flex flex-col items-center justify-center p-6">
+  
+  <div id="admin-container" class="w-full max-w-lg transition-all duration-300 bg-white rounded-md shadow-xl overflow-hidden border border-zinc-200">
+    <div class="bg-[#011d50] p-6 text-center">
+      <h1 class="text-white font-black text-2xl uppercase tracking-widest">NETEX DISPATCH</h1>
+      <p class="text-blue-200 text-xs font-mono mt-2 tracking-widest">SECURE ADMIN PORTAL</p>
+    </div>
+
+    <!-- Login Section -->
+    <div id="admin-login-section" class="p-8 block">
+      <p class="text-sm text-zinc-500 mb-6 text-center">Please authenticate to access the tracking management system.</p>
+      <form id="admin-login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">Email</label>
+          <input type="email" id="admin-email" required class="w-full border border-zinc-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-[#011d50] focus:border-[#011d50] outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">Password</label>
+          <div class="relative">
+            <input type="password" id="admin-password" required class="w-full border border-zinc-300 rounded px-3 py-2 pr-10 text-sm focus:ring-2 focus:ring-[#011d50] focus:border-[#011d50] outline-none">
+            <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 px-3 flex items-center text-[#011d50] hover:text-blue-700">
+              <i data-lucide="eye" class="w-4 h-4" id="toggle-password-icon"></i>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-[#011d50] hover:bg-blue-900 text-white font-bold py-3 rounded text-sm uppercase tracking-widest transition-colors mt-2">
+          Authenticate
+        </button>
+      </form>
+      <div id="admin-login-error" class="hidden mt-4 p-3 bg-red-50 text-red-600 text-xs border border-red-200 rounded text-center"></div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <!-- Dashboard Section -->
+    <div id="admin-dashboard-section" class="p-6 md:p-8 hidden">
+      <div class="flex justify-between items-center mb-6 pb-4 border-b border-zinc-100">
+        <h2 class="font-bold text-lg">Manage Shipments</h2>
+        <button id="admin-logout-btn" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-widest">Logout</button>
+      </div>
+
+      <!-- Collapsible Create Shipment Form -->
+      <details class="bg-zinc-50 border border-zinc-200 rounded-sm mb-8 group">
+        <summary class="font-bold text-xs uppercase tracking-widest text-zinc-800 p-4 cursor-pointer select-none list-none flex justify-between items-center">
+          + Create New Shipment
+          <span class="text-zinc-400 group-open:rotate-180 transition-transform">&#9660;</span>
+        </summary>
+        <div class="p-4 border-t border-zinc-200 bg-white">
+          <form id="admin-create-form" class="grid grid-cols-2 md:grid-cols-6 gap-4 items-end">
+            <div class="md:col-span-1">
+              <label class="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-1">Tracking Number</label>
+              <input type="text" id="create-id" required placeholder="NETEX-10001" class="font-mono w-full border border-zinc-300 rounded px-3 py-2 text-[11px] uppercase focus:ring-2 focus:ring-[#011d50] outline-none">
+            </div>
+            <div class="md:col-span-1">
+              <label class="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-1">Origin</label>
+              <input type="text" id="create-origin" required placeholder="Dubai, UAE" class="w-full border border-zinc-300 rounded px-3 py-2 text-[11px] focus:ring-2 focus:ring-[#011d50] outline-none">
+            </div>
+            <div class="md:col-span-1">
+              <label class="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-1">Destination</label>
+              <input type="text" id="create-destination" required placeholder="London, UK" class="w-full border border-zinc-300 rounded px-3 py-2 text-[11px] focus:ring-2 focus:ring-[#011d50] outline-none">
+            </div>
+            <div class="md:col-span-1">
+              <label class="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-1">Initial Status</label>
+              <select id="create-status" class="w-full border border-zinc-300 rounded px-3 py-2 text-[11px] font-bold uppercase focus:ring-2 focus:ring-[#011d50] outline-none">
+                 <option value="ORDER RECEIVED" selected>Order Received</option>
+                 <option value="IN TRANSIT">In Transit</option>
+                 <option value="CUSTOMS CLEARANCE">Customs Clearance</option>
+                 <option value="OUT FOR DELIVERY">Out for Delivery</option>
+                 <option value="DELIVERED">Delivered</option>
+                 <option value="ON HOLD">On Hold</option>
+              </select>
+            </div>
+            <div class="md:col-span-1">
+              <label class="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-1">Checkpoint</label>
+              <input type="text" id="create-checkpoint" required placeholder="e.g. Dubai Office" class="w-full border border-zinc-300 rounded px-3 py-2 text-[11px] focus:ring-2 focus:ring-[#011d50] outline-none">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+              <button type="submit" class="w-full bg-[#011d50] hover:bg-blue-900 text-white font-bold px-4 py-2 rounded text-[11px] uppercase tracking-widest transition-colors shadow-md h-[34px]">
+                Create
+              </button>
+            </div>
+          </form>
+          <div id="create-success-msg" class="hidden mt-4 p-2 bg-green-50 text-green-700 text-xs border border-green-200 rounded text-center font-bold">Shipment Created!</div>
+        </div>
+      </details>
+
+      <!-- Active Shipments Table -->
+      <div class="flex justify-between items-end mb-4">
+        <h3 class="font-bold text-sm text-zinc-800 uppercase tracking-widest">Active Shipments</h3>
+        <div class="flex items-center gap-4">
+          <input type="text" id="search-active-shipments" placeholder="Search tracking # or route..." class="border border-zinc-300 rounded px-3 py-1.5 text-[11px] focus:ring-1 focus:ring-[#011d50] outline-none w-64">
+          <button id="refresh-shipments-btn" type="button" class="text-[10px] uppercase font-bold tracking-wider text-brand-blue hover:underline">Refresh List</button>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto bg-white border border-zinc-200 rounded-sm shadow-sm">
+        <table class="w-full text-left border-collapse min-w-[800px]">
+          <thead>
+            <tr class="bg-zinc-50 border-b border-zinc-200 text-[10px] uppercase tracking-wider text-zinc-500">
+              <th class="p-3 font-bold w-1/4">Tracking # / Route</th>
+              <th class="p-3 font-bold w-1/4">Timeline History</th>
+              <th class="p-3 font-bold w-1/6">New Status</th>
+              <th class="p-3 font-bold w-1/4">New Checkpoint</th>
+              <th class="p-3 font-bold w-24 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="active-shipments-table-body" class="divide-y divide-zinc-100">
+            <!-- Populated by JS -->
+            <tr><td colspan="5" class="p-4 text-center text-xs text-zinc-500 italic">Loading active shipments...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    </div>
+  </div>
+
+  <!-- Firebase CDN (Compat version for file:// static html support) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+
+  <script src="./src/admin.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
