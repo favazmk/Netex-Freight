@@ -168,25 +168,33 @@ function renderTrackingData(data) {
     stepperContainer.innerHTML = stepperHTML;
   }
 
-  // Render Vertical Stepper for Mobile
+  // Render Unified Vertical Stepper for Mobile
   const verticalStepperContainer = document.getElementById("tracking-stepper-vertical");
   if (verticalStepperContainer) {
     const totalSteps = globalStatuses.length;
-    let vStepperHTML = '<div class="relative flex flex-col gap-6 ml-2">';
-
-    // Background gray vertical line
-    vStepperHTML += `<div style="position:absolute; left:18px; top:18px; bottom:18px; width:4px; background:#e4e4e7; border-radius:9999px; z-index:0;"></div>`;
-
-    // Progress colored vertical line overlay
-    if (currentIndex > 0) {
-      const progressPercent = currentIndex >= 0 ? (currentIndex / (totalSteps - 1)) * 100 : 0;
-      const lineColor = isOnHold ? '#ef4444' : '#011d50';
-      vStepperHTML += `<div style="position:absolute; left:18px; top:18px; width:4px; background:${lineColor}; border-radius:9999px; height:calc((100% - 36px) * ${progressPercent / 100}); z-index:1;"></div>`;
+    
+    // Group timeline items by global status
+    const timelineGroups = {};
+    globalStatuses.forEach(s => timelineGroups[s] = []);
+    if (data.timeline && Array.isArray(data.timeline)) {
+      data.timeline.forEach(event => {
+        let matchedStatus = "ORDER RECEIVED"; // fallback
+        for (const gs of globalStatuses) {
+          if (event.status.toUpperCase().startsWith(gs.toUpperCase())) {
+            matchedStatus = gs;
+            break;
+          }
+        }
+        timelineGroups[matchedStatus].push(event);
+      });
     }
+
+    let vStepperHTML = '<div class="relative flex flex-col ml-2">';
 
     globalStatuses.forEach((status, idx) => {
       const isCompleted = idx <= currentIndex;
       const isActive = idx === currentIndex;
+      const isPast = idx < currentIndex;
 
       let circleBg = isCompleted ? '#011d50' : '#e4e4e7';
       let circleColor = isCompleted ? '#ffffff' : '#a1a1aa';
@@ -201,13 +209,40 @@ function renderTrackingData(data) {
       const ringStyle = isActive
         ? `box-shadow: 0 0 0 4px ${isOnHold ? 'rgba(239,68,68,0.2)' : 'rgba(1,29,80,0.2)'}, 0 10px 15px -3px rgba(0,0,0,0.1);`
         : '';
+        
+      const hasHistory = timelineGroups[status].length > 0;
+      const isLastStep = idx === totalSteps - 1;
 
       vStepperHTML += `
-        <div class="relative flex items-center gap-4 z-10">
-          <div style="width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:${circleBg}; color:${circleColor}; ${ringStyle} flex-shrink-0;">
-            <i data-lucide="${icon}" style="width:20px; height:20px;"></i>
+        <div class="relative flex items-start gap-4 z-10 ${!isLastStep ? 'pb-6' : ''}">
+          <!-- Vertical Connecting Line -->
+          ${!isLastStep ? `<div style="position:absolute; left:18px; top:40px; bottom:0; width:4px; background:${isPast || (isActive && !isOnHold) ? '#011d50' : '#e4e4e7'}; margin-left:-2px; z-index:0; border-radius:9999px;"></div>` : ''}
+          
+          <!-- Circle -->
+          <div style="width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:${circleBg}; color:${circleColor}; ${ringStyle} flex-shrink-0; z-index:10; margin-top:2px; position:relative;">
+            <i data-lucide="${icon}" style="width:18px; height:18px;"></i>
           </div>
-          <span style="font-size:11px; ${labelStyle} text-transform:uppercase; letter-spacing:0.1em; line-height:1.2;">${status}</span>
+          
+          <!-- Content -->
+          <div class="flex-grow pt-2">
+            <span style="font-size:12px; ${labelStyle} text-transform:uppercase; letter-spacing:0.1em; line-height:1.2; display:block; margin-bottom:${hasHistory ? '12px' : '0'};">${status}</span>
+            
+            <!-- Grouped History Items -->
+            ${hasHistory ? `
+              <div class="flex flex-col gap-3">
+                ${timelineGroups[status].reverse().map((event, eventIdx) => {
+                  const isLatestEvent = isActive && eventIdx === 0;
+                  return `
+                    <div class="bg-zinc-50 rounded-md p-3 border border-zinc-100 relative">
+                       ${isLatestEvent ? '<div class="absolute left-0 top-0 bottom-0 w-1 bg-brand-blue rounded-l-md"></div>' : ''}
+                       <div class="text-[10px] font-mono ${isLatestEvent ? 'text-brand-blue font-bold' : 'text-zinc-400'} uppercase tracking-widest mb-1">${event.date} ${event.time || ''}</div>
+                       <div class="text-xs font-sans text-zinc-800 uppercase font-semibold">${event.status}</div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : ''}
+          </div>
         </div>
       `;
     });
