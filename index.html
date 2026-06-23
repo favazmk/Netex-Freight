@@ -1283,9 +1283,14 @@
             </div>
 
             <!-- Global Status Horizontal Stepper -->
-            <div id="tracking-stepper" class="hidden md:flex" style="position:relative; width:100%; margin-bottom:56px; padding-bottom:8px;">
-              <!-- Injected by JS -->
+            <div class="w-full overflow-x-auto pb-4 mb-8 -mx-6 px-6 md:mx-0 md:px-0" style="scrollbar-width: none; -ms-overflow-style: none;">
+              <div id="tracking-stepper" class="flex min-w-[500px]" style="position:relative; width:100%; padding-bottom:8px;">
+                <!-- Injected by JS -->
+              </div>
             </div>
+            <style>
+              .w-full.overflow-x-auto::-webkit-scrollbar { display: none; }
+            </style>
 
             <h4 class="text-xs font-bold text-zinc-800 uppercase tracking-widest mb-6 border-b border-zinc-100 pb-2">Tracking History</h4>
             <!-- Vertical Timeline -->
