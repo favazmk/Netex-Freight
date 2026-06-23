@@ -230,7 +230,7 @@ let mapInstance = null;
 // ==========================================
 function executePageRouting() {
   const hash = window.location.hash.replace('#', '') || 'home';
-  const validPages = ['home', 'about-us', 'services', 'why-choose-us', 'contact-us'];
+  const validPages = ['home', 'about-us', 'services', 'why-choose-us', 'contact-us', 'tracking'];
   const targetPage = validPages.includes(hash) ? hash : 'home';
 
   // Toggle page-view wrapper visibility
@@ -931,20 +931,55 @@ function setupContactForms() {
       return;
     }
 
-    // Build professional WhatsApp message
-    const waText = `Hello Netex Freight Dispatch,\n\nI have a new cargo routing inquiry. Please find my details below:\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone}\n\n*Inquiry Details:*\n${message}\n\nPlease let me know the best way to proceed.\n\nThank you!`;
-    const waUrl = `https://wa.me/971543043515?text=${encodeURIComponent(waText)}`;
-    window.open(waUrl, '_blank');
+    // Build JSON payload for FormSubmit
+    const payload = {
+      name: name,
+      email: email,
+      phone: phone,
+      message: message,
+      _subject: "New Inquiry from Netex Freight Website!"
+    };
 
-    // Showcase alert success message
-    const alertBox = document.getElementById('contact-form-success-alert');
-    if (alertBox) {
-      alertBox.classList.remove('hidden');
-      alertBox.classList.add('animate-fade-in');
-    }
+    // Show loading state on button
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerText;
+    submitBtn.innerText = "SENDING...";
+    submitBtn.disabled = true;
 
-    // Reset inputs
-    form.reset();
+    // Send via FormSubmit AJAX
+    fetch("https://formsubmit.co/ajax/info@netexfreight.com", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => {
+      submitBtn.innerText = originalBtnText;
+      submitBtn.disabled = false;
+      
+      // Show success message
+      const successAlert = document.getElementById('contact-form-success-alert');
+      if (successAlert) {
+        successAlert.classList.remove('hidden');
+      }
+      form.reset();
+      
+      // Note: First time submission requires email activation.
+      if(data.success === "false" || (data.message && data.message.includes("activate"))) {
+        alert("Action Required: Please check info@netexfreight.com to activate this form!");
+      }
+    })
+    .catch(error => {
+      submitBtn.innerText = originalBtnText;
+      submitBtn.disabled = false;
+      alert("There was an error sending your inquiry. Please try again.");
+      console.log(error);
+    });
+
+
 
     // Auto dismiss after 5 seconds
     setTimeout(() => {
