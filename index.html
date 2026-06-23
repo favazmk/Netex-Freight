@@ -1292,7 +1292,17 @@
               <!-- Injected by JS -->
             </div>
 
-            <div class="hidden md:block">
+            <style>
+              @media (min-width: 768px) {
+                #tracking-stepper-vertical { display: none !important; }
+                #desktop-tracking-history { display: block !important; }
+              }
+              @media (max-width: 767px) {
+                #desktop-tracking-history { display: none !important; }
+              }
+            </style>
+
+            <div id="desktop-tracking-history">
               <h4 class="text-xs font-bold text-zinc-800 uppercase tracking-widest mb-6 border-b border-zinc-100 pb-2">Tracking History</h4>
               <!-- Vertical Timeline -->
               <div class="relative mt-4" id="tracking-timeline-list">
