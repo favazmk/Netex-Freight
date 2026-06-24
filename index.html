@@ -308,7 +308,7 @@
       <a href="#why-choose-us"
         class="mobile-nav-link block py-2.5 text-zinc-700 hover:text-brand-blue border-b border-zinc-100">Why Choose
         Us</a>
-      <a href="#tracking" class="mobile-nav-link block py-2.5 text-brand-blue font-bold border-b border-zinc-100">Track Cargo</a>
+      <a href="#tracking" class="mobile-nav-link block py-2.5 text-zinc-700 hover:text-brand-blue border-b border-zinc-100">Track Cargo</a>
       <a href="#contact-us" class="mobile-nav-link block py-2.5 text-zinc-700 hover:text-brand-blue">Contact Us</a>
       <div class="pt-2 flex items-center justify-between">
         <a href="tel:+971502627995" class="py-2.5 text-[#011d50] font-bold block flex items-center gap-2">
@@ -1318,42 +1318,12 @@
 
   </main>
 
-  <!-- Sticky Contact Widget -->
-  <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-    <!-- Hidden Menu -->
-    <div id="sticky-contact-menu" class="hidden absolute right-0 mb-4 flex-col items-center space-y-3 w-14"
-      style="bottom: 100%;">
-      <a href="tel:+971502627995" class="group relative flex items-center justify-center w-full cursor-pointer">
-        <span
-          class="absolute right-[100%] mr-4 bg-white text-zinc-800 font-mono text-[10px] font-bold px-3 py-1.5 rounded-sm shadow-md border border-zinc-200 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block">Call
-          Dispatch</span>
-        <div
-          class="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform"
-          style="background-color: #011d50;">
-          <i data-lucide="phone" class="w-5 h-5"></i>
-        </div>
-      </a>
-      <a href="https://wa.me/971502627995" target="_blank"
-        class="group relative flex items-center justify-center w-full cursor-pointer">
-        <span
-          class="absolute right-[100%] mr-4 bg-white text-zinc-800 font-mono text-[10px] font-bold px-3 py-1.5 rounded-sm shadow-md border border-zinc-200 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block">WhatsApp</span>
-        <div
-          class="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform"
-          style="background-color: #25D366;">
-          <i data-lucide="message-circle" class="w-5 h-5"></i>
-        </div>
-      </a>
-    </div>
-    <!-- Main FAB -->
-    <button id="sticky-contact-btn"
-      class="relative w-14 h-14 rounded-full flex items-center justify-center text-white transition-all cursor-pointer"
-      style="background-color: #52525b; border: 3px solid white; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"
-      onmouseover="this.style.transform='scale(1.05)'; this.style.backgroundColor='#3f3f46'"
-      onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='#52525b'">
-      <i data-lucide="message-square" id="sticky-icon-headphones" class="w-6 h-6"></i>
-      <i data-lucide="x" id="sticky-icon-close" class="w-6 h-6 hidden"></i>
-    </button>
-  </div>
+  <!-- Sticky Contact Widget (WhatsApp Only) -->
+  <a href="https://wa.me/971502627995" target="_blank"
+    class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform cursor-pointer"
+    style="background-color: #25D366; border: 3px solid white; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+    <i data-lucide="message-circle" class="w-6 h-6"></i>
+  </a>
 
   <!-- 4. IMMERSIVE PDF BRIEF DOCUMENT OVERLAY MODAL -->
   <div id="brochure-modal"
